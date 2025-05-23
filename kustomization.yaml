@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
   - shared
   - longhorn
-  - sealed-secrets
+  - postgres

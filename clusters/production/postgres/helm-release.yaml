@@ -21,6 +21,7 @@ spec:
       size: 1Gi
     global:
       storageClass: longhorn
-    postgresqlPassword: root
+    auth:
+      password: root
   install:
     createNamespace: true

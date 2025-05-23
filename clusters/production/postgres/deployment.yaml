@@ -1,10 +1,9 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: postgres
   namespace: postgres
 spec:
-  serviceName: "postgres"
   replicas: 1
   selector:
     matchLabels:
@@ -16,25 +15,23 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: postgres:16
+          image: postgres:15-alpine
           ports:
             - containerPort: 5432
           env:
             - name: POSTGRES_DB
-              value: rootDB
+              value: rootdb
             - name: POSTGRES_USER
               value: root
             - name: POSTGRES_PASSWORD
-              value: root
+              valueFrom:
+                secretKeyRef:
+                  name: pg-secret
+                  key: password
           volumeMounts:
-            - name: pgdata
-              mountPath: /var/lib/postgresql/data
-  volumeClaimTemplates:
-    - metadata:
-        name: pgdata
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        storageClassName: longhorn
-        resources:
-          requests:
-            storage: 1Gi
+            - mountPath: /var/lib/postgresql/data
+              name: pgdata
+      volumes:
+        - name: pgdata
+          persistentVolumeClaim:
+            claimName: pvc-postgres

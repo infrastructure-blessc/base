@@ -3,5 +3,4 @@ kind: Kustomization
 
 resources:
   - shared
-  - sealed-secrets
   - longhorn

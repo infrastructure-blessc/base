@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: unbound-api
+  namespace: unbound
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: unbound-api
+  template:
+    metadata:
+      labels:
+        app: unbound-api
+    spec:
+      imagePullSecrets:
+      - name: ghcr-secret
+      containers:
+      - name: unbound-api
+        image: ghcr.io/unbound-blessc/api:latest
+        ports:
+        - containerPort: 80

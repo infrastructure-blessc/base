@@ -1,0 +1,10 @@
+namespace: unbound
+
+resources:
+  - namespace.yaml
+  - secrets/registry-secret.yaml
+  - ingress.yaml
+  - web/deployment.yaml
+  - web/service.yaml
+  - api/deployment.yaml
+  - api/service.yaml

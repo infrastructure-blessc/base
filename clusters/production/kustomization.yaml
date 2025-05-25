@@ -6,4 +6,3 @@ resources:
   - ingress-nginx
   - cert-manager
   - longhorn
-  - unbound
